@@ -1,13 +1,13 @@
 
 FlowRouter.route('/', {
     action: function() {
-        FlowRouter.go('/pageOne');
+        FlowRouter.go('/dashboard');
     }
 });
 
-FlowRouter.route('/pageOne', {
+FlowRouter.route('/dashboard', {
     action: function() {
-        BlazeLayout.render("mainLayout", {content: "pageOne"});
+        BlazeLayout.render("mainLayout", {content: "dashboard"});
     }
 });
 
