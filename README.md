@@ -1,7 +1,7 @@
 # paramount
 Hardware setup:
 1. RTC config
-  - use UDP NTP to set internal WICED RTC
+  - use UDP NTP to set internal WICED RTC (Reference TimeNDP.ino, change it so it works over WIFI instead of ethernet)
   - or get external RTC
 2. Sensor config(Temperature sensor)
 3. Configure payload
