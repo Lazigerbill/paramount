@@ -8,10 +8,7 @@ Template.navigation.rendered = function(){
 };
 
 Template.navigation.helpers({
-	currentuser_name: function(){
-		return Meteor.user().profile.firstname + " " + Meteor.user().profile.lastname
-	},
-	currentuser_email: function(){
-		return Meteor.user().profile.email
+	currentuser: function(){
+			return Meteor.user()
 	}
 });
