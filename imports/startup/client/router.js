@@ -5,18 +5,25 @@ var exposed = FlowRouter.group({ });
 exposed.route('/login', {
  	name: 'login',
  	action: function() {
-   		BlazeLayout.render('blank', {content: 'welcome'});
+   		BlazeLayout.render('blankLayout', {content: 'welcome', action: 'login'});
    	}
 }),
 
-exposed.route('/signup', {
- 	name: 'signup',
+exposed.route('/register', {
+ 	name: 'register',
  	action: function() {
-   		BlazeLayout.render('signup');
+   		BlazeLayout.render('blankLayout', {content: 'welcome', action: 'register'});
    	}
 });   	
 
-import '/imports/ui/pages/login.js';
+exposed.route('/forgotPassword', {
+  name: 'forgotPassword',
+  action: function() {
+      BlazeLayout.render('blankLayout', {content: 'welcome', action: 'forgotPassword'});
+    }
+});   
+
+import '/imports/ui/pages/welcome.js';
 var loggedIn = FlowRouter.group({
   	triggersEnter: [function(){
   		var route;

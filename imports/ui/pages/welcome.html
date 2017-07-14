@@ -1,0 +1,22 @@
+<template name="welcome">
+
+    {{> pageHeading title='Welcome' }}
+
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="text-center m-t-lg">
+                     <h3>IoT DEMO</h3>
+                     <p>Perfectly designed and precisely prepared industrial dashboard to bring big data to your finger tips.
+                     </p>
+						
+					<!-- Main view  -->
+					{{> Template.dynamic template=action }}
+					
+					<p class="m-t"> <small>Contrarian Labs &copy; 2015</small> </p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
