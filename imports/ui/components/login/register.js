@@ -10,7 +10,8 @@ Template.register.events({
         Accounts.createUser({
     	    profile: {
 	           firstname: firstname,
-	           lastname: lastname
+	           lastname: lastname,
+               email: email
 	        },  
             email: email,
             password: password
