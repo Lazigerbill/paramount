@@ -9,13 +9,20 @@
   "author": "",
   "dependencies": {
     "aws-iot-device-sdk": "^1.0.14",
-    "aws-sdk": "^2.83.0",
+    "aws-sdk": "^2.84.0",
     "babel-runtime": "^6.23.0",
     "bcrypt": "^1.0.2",
+    "browserify": "^14.4.0",
     "bufferutil": "^3.0.2",
+    "commist": "^1.0.0",
+    "duplexify": "^3.5.0",
+    "g": "^2.0.1",
     "jquery": "^2.1.0",
     "meteor-node-stubs": "^0.2.11",
-    "utf-8-validate": "^3.0.3"
+    "reinterval": "^1.1.0",
+    "split2": "^2.1.1",
+    "utf-8-validate": "^3.0.3",
+    "websocket-stream": "^5.0.0"
   },
   "license": "Apache-2.0"
 }
