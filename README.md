@@ -1,15 +1,26 @@
-Inspinia - Meteor version 2017
-version: 2.7.1
-
-Meteor.js is an open-source platform built on Node and MongoDB
-See documentation of Meteor to learn more: http://docs.meteor.com/#/full/
-Install Meteor: https://www.meteor.com/install
-Be sure that you have all setup - create the Meteor project and run the sample application: https://www.meteor.com/try
-
-INSPINIA first run - just cd into Inspinia Meteor project and run the application with:
-
-meteor
-
-This will grab the necessary packages, bundle all the css and js and start your application
-Go to http://localhost:3000 to see live version
 # paramount
+Hardware setup:
+1. RTC config
+  - use UDP NTP to set internal WICED RTC
+  - or get external RTC
+2. Sensor config(Temperature sensor)
+3. Configure payload
+  - so the payload structure will match best practice for AWS-IOT
+  
+Backend:
+1. setup node cron job to:
+  - create data placeholder
+  - create functions to insert on msg
+2. create function to form RT charting document
+
+Frontend:
+1. Design layout and cards to use
+2. Upon login, 
+  - get RT charting data and chart
+  - Grab last data point and insert to card
+  - Subscript to DB and observe change, plug in to session variable and update accordingly
+3. Historical data
+
+Deployment:
+1. DB
+2. App
