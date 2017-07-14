@@ -1,4 +1,4 @@
-import '/imports/startup/client';
+import '/imports/startup/client/index.js';
 
 // layouts
 import '/imports/ui/layouts/main.js';

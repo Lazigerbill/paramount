@@ -13,3 +13,9 @@ import './router.js';
 import './mqtt.js';
 
 
+
+// plugins
+import '/imports/ui/plugins/metisMenu/jquery.metisMenu.js';
+import '/imports/ui/plugins/pace/pace.min.js';
+import '/imports/ui/plugins/slimscroll/jquery.slimscroll.min.js';
+// import toastr from 'toastr';

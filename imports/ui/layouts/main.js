@@ -7,12 +7,6 @@ import '/imports/ui/components/navigation.js';
 import '/imports/ui/components/page-heading.js';
 import '/imports/ui/components/top-navbar.js';
 
-
-// plugins
-import '/imports/ui/plugins/metisMenu/jquery.metisMenu.js'
-import '/imports/ui/plugins/pace/pace.min.js'
-import '/imports/ui/plugins/slimscroll/jquery.slimscroll.min.js'
-
 Template.mainLayout.rendered = function(){
 
     // Minimalize menu when screen is less than 768px

@@ -1,7 +1,7 @@
 // Lets make a group for routes that are public, which means accessibly to anyone
 // The reason that we’re not calling the group ‘public’ is because that’s a reserved word in Coffeescript / Javascript. So we just call it exposed
 var exposed = FlowRouter.group({ });
-
+import '/imports/ui/pages/welcome.js';
 exposed.route('/login', {
  	name: 'login',
  	action: function() {
@@ -23,7 +23,6 @@ exposed.route('/forgotPassword', {
     }
 });   
 
-import '/imports/ui/pages/welcome.js';
 var loggedIn = FlowRouter.group({
   	triggersEnter: [function(){
   		var route;
@@ -37,8 +36,6 @@ var loggedIn = FlowRouter.group({
     	
   	}]
 });
-
-
 
 import '/imports/ui/pages/dashboard.js';
 import '/imports/ui/pages/pageTwo.js';
