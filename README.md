@@ -4,8 +4,10 @@ Hardware setup:
   - use UDP NTP to set internal WICED RTC (Reference TimeNDP.ino, change it so it works over WIFI instead of ethernet)
   - or get external RTC
 2. Sensor config(Temperature sensor)
+  - OneWire, 12bit resolution
 3. Configure payload
   - so the payload structure will match best practice for AWS-IOT
+  - publish at an interval, avoid using delay(), just milli() method instead
   
 Backend:
 1. setup node cron job to:
