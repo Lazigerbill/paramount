@@ -1,4 +1,6 @@
 import awsIot from 'aws-iot-device-sdk';
+import { Lifecycles } from '/imports/api/lifecycles.js';
+import { Readings } from '/imports/api/readings.js';
 
 var base = process.env.PWD
 
@@ -20,10 +22,22 @@ var device = awsIot.device({
 
 device.on('connect', function() {
     console.log('connect');
-    device.subscribe('$aws/things/test_wiced/test');
-    // device.publish('topic_2', JSON.stringify({ test_data: 1}));
+    device.subscribe('$aws/events/+/+/test_wiced');
+    device.subscribe('/things/test_wiced/test');
 });
 
-device.on('message', function(topic, payload) {
-    console.log('message', topic, payload.toString());
-});
+device.on('message', Meteor.bindEnvironment(function callback(topic, payload) {
+    console.log(topic, payload.toString());
+    // console.log(JSON.parse(payload).d);x`
+    var patt = new RegExp("events");
+    var res = patt.test(topic);
+    if (res){
+        Lifecycles.insert(JSON.parse(payload)), function(e) { 
+            throw e;
+        }
+    } else {
+        Readings.insert(JSON.parse(payload)), function(e) { 
+            throw e;
+        };
+    }
+}));
