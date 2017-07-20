@@ -44,10 +44,18 @@
 ## Frontend:
 1. Design layout and cards to use
 2. Upon login, 
-  - [ ]get RT charting data and chart
-  - [ ]Grab last data point and insert to card
-  - [ ]Subscript to DB and observe change, plug in to session variable and update accordingly
+  - [ ]get RT charting data and chart.  RT data is created ready server side, fixed length.
+  - [ ]Don't subscribe AWS on client side, too much trouble with authentication.  Just listen to DB change to update chart.
+  - [ ]Subscript to DB and observe change, plug in to session variable and update device status accordingly
 3. Historical data
+  - since Mongo aggregation is not reative, it is only useful for historical data.  Use function like $unwind, $project or $map to create daily charting data
+
+Chart considerations:
+1. Support JSON data
+2. Support timeseries charting
+3. Support dynamic data(real time)
+4. Zoom
+## conclusion: C3, next: ChartJS, RichShaw
 
 ## Deployment:
 1. DB
