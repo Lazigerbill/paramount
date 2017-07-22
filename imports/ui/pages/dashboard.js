@@ -1,4 +1,8 @@
 import './dashboard.html';
+import '/imports/ui/components/dashboard/c3Chart.js';
+import '/imports/ui/components/dashboard/rtCard.js';
+import '/imports/ui/components/dashboard/serverLog.js';
+import '/imports/ui/components/dashboard/deviceStatus.js';
 
 // Template.dashboard.onCreated(function(){
 // 	import AWS from 'aws-sdk';

@@ -4,7 +4,7 @@ import { Readings } from '/imports/api/readings.js';
 
 var base = process.env.PWD
 
-console.log(base);
+// console.log(base);
 
 var device = awsIot.device({
 	"keyPath": base + Meteor.settings.aws_iot.keyPath,
