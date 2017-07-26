@@ -5,17 +5,17 @@
   - [X]use UDP NTP to set internal WICED RTC (Reference TimeNDP.ino, change it so it works over WIFI instead of ethernet)
   - [ ]or get external RTC
 2. Sensor config(Temperature sensor)
-  - [ ]OneWire, 12bit resolution
+  - [X]OneWire, 12bit resolution
 3. Configure payload
   - [X]so the payload structure will match best practice for AWS-IOT
-  - [ ]publish at an interval, avoid using delay(), just milli() method instead, datetime in epoch
+  - [X]publish at an interval, avoid using delay(), just milli() method instead, datetime in epoch
   
 1. lifecycle events:
     - [X]subscribe to events to monitor device connect/disconnect/sub/unsub status(4 possible outcomes)
 2. data:
-    - [ ]device status(battery level and wifi signal) (update over the same minute mark)
-    - [ ]sensor data (accumlative)
-    - [ ]real-time data 
+    - [X]device status(battery level and wifi signal) (update over the same minute mark)
+    - [X]sensor data (accumlative)
+    - [X]real-time data 
     data: [{ts: xxx, temp: xxx}, {ts: xxx, temp: xxx},...]
     use push to keep that to a limited length
     
