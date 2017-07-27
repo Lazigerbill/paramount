@@ -23,7 +23,7 @@ const creatPlaceholder = new cron.CronJob({
    	start: true,		// start job now? or need to do job.start()
   	timeZone: 'America/Toronto'	//timeZone
 });
-// insertPlaceholder(moment().format("DDMMYYYY"));
+insertPlaceholder(moment().format("DDMMYYYY"));
 
 // The following codes insert a daily placeholder for all the readings
 function insertPlaceholder(DDMMYYYY){
@@ -51,7 +51,8 @@ function insertPlaceholder(DDMMYYYY){
 	Readings.update(
 		{"_id": id},
 		{$setOnInsert: 
-			{"readings": JSON.parse(hours)}
+			{"readings": JSON.parse(hours),
+			"rtSeq": []}
 		}, 
 		{upsert: true}
 		);

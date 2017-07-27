@@ -2,6 +2,7 @@ import awsIot from 'aws-iot-device-sdk';
 import moment from 'moment';
 import { Lifecycles } from '/imports/api/lifecycles.js';
 import { Readings } from '/imports/api/readings.js';
+import { RtData } from '/imports/api/rtData.js';
 
 var base = process.env.PWD
 
@@ -29,29 +30,49 @@ device.on('connect', function() {
 
 device.on('message', Meteor.bindEnvironment(function callback(topic, payload) {
     console.log(topic, payload.toString());
-    // console.log(JSON.parse(payload).d);x`
     var patt = new RegExp("events");
     var match = patt.test(topic);
     if (match){
-        Lifecycles.insert(JSON.parse(payload)), function(e) { 
+        data = JSON.parse(payload);
+        data.timestamp = new Date(data.timestamp) //convert epoch to js time object
+        Lifecycles.insert(data), function(e) { 
             throw e;
         }
     } else {
         const data = JSON.parse(payload);
         const ts = new Date(data.d.timestamp*1000)
+        const newSeq = data.d.sensor.temperature;
+        newSeq.ts = ts;
+        newSeq.battery = data.d.status.battery_lvl;
+        newSeq.signal = data.d.status.wifi_signal;
+        const arr = [newSeq];
         const collection = topic + ":" + moment(ts).format("DDMMYYYY");
-        const marker = "readings.h" + moment(ts).format("h") + ".m" + moment(ts).format("m");
+        const marker = "readings.h" + moment(ts).format("H") + ".m" + moment(ts).format("m");
         const tempSum = marker + ".tempSum";
         const tempCount = marker + ".tempCount";
         const query = {}
         query[tempSum] = data.d.sensor.temperature.celsius;
         query[tempCount] = 1;
-        console.log(tempCount);
-        console.log(data.d.sensor.temperature.celsius);
+        console.log(marker);
         Readings.update(
         { "_id": collection },
-        {$inc: 
-            query   
+        {
+            $inc: query,
+            $push: { 
+                rtSeq: {
+                    $each: arr,
+                    $position: 0
+                }
+            }
+        },
+        {},
+        function(err){
+            if(err){
+                console.log(err);
+            }
         })
+
+
+
     };
 }));

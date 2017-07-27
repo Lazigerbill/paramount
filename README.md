@@ -36,7 +36,7 @@
 1. 3 documents
   - [ ]device events
   - [ ]Daily sensor readings
-  - [ ]RT chart data
+  - [ ]RT chart data(add array to DB, "unshift" to the beginning of array)
 2. setup node cron job to:
   - [X]create data placeholder
   - [ ]create functions to insert on msg
@@ -49,6 +49,22 @@
   - [ ]Subscript to DB and observe change, plug in to session variable and update device status accordingly
 3. Historical data
   - since Mongo aggregation is not reative, it is only useful for historical data.  Use function like $unwind, $project or $map to create daily charting data
+  - Calendar date picker.  Subcription to DB with arg listening to Session.get.  When date is selected, Session.set new picked date.  Server side to publish the relavent date, do the following aggregation:
+  a. unwind
+  b. average per minute
+  c. project
+  - default is today's date? Use session default?
+4. RT chart
+  - Each tick is saved as an array, new point array.unshift to the front position
+  - On render, chart picks up the entire array(or can array.slice into any length)
+  - Oberserve sessions, sessions will also store the last tick
+
+5. Sessions
+  - Sessions will always store the last tick, reading from rtSeq
+  - Sessions default is set to the last rtSeq
+  - Rt chart will get from sessions for new data
+  - device status/RT temp will get from sessions for latest data
+  - avg, hi, lo?
 
 Chart considerations:
 1. Support JSON data
