@@ -2,7 +2,6 @@ import awsIot from 'aws-iot-device-sdk';
 import moment from 'moment';
 import { Lifecycles } from '/imports/api/lifecycles.js';
 import { Readings } from '/imports/api/readings.js';
-import { RtData } from '/imports/api/rtData.js';
 
 var base = process.env.PWD
 
@@ -46,7 +45,7 @@ device.on('message', Meteor.bindEnvironment(function callback(topic, payload) {
         newSeq.battery = data.d.status.battery_lvl;
         newSeq.signal = data.d.status.wifi_signal;
         const arr = [newSeq];
-        const collection = topic + ":" + moment(ts).format("DDMMYYYY");
+        const document = topic + ":" + moment(ts).format("DDMMYYYY");
         const marker = "readings.h" + moment(ts).format("H") + ".m" + moment(ts).format("m");
         const tempSum = marker + ".tempSum";
         const tempCount = marker + ".tempCount";
@@ -55,7 +54,7 @@ device.on('message', Meteor.bindEnvironment(function callback(topic, payload) {
         query[tempCount] = 1;
         console.log(marker);
         Readings.update(
-        { "_id": collection },
+        { "_id": document },
         {
             $inc: query,
             $push: { 

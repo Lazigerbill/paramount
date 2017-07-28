@@ -16,7 +16,7 @@
 
 <template name ="serverItem">
 	<li class="list-group-item">
-		<p><a class="text-info" href="#">@{{ clientId }}</a> {{ eventType }}</p>
+		<p><a class="text-info" href="#">@{{ clientId }}</a> <span class="badge">{{eventType}}</span></p>
 		<p>{{ topics }}</p>
 		<small class="block text-muted"><i class="fa fa-clock-o"></i> {{ timestamp }}</small>
 	</li>

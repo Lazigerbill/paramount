@@ -4,36 +4,39 @@
 			<span class="label label-primary pull-right">Real Time</span>
 			<h5>Real-Time Reading</h5>
 		</div>
+		{{#if Template.subscriptionsReady}}
 		<div class="ibox-content">
-			<h1 class="no-margins">22.57&deg;C</h1>
+			<h1 class="no-margins">{{celsius}}&deg;C / {{fahrenheit}}&deg;F</h1>
 
 			<div class="stat-percent font-bold text-navy">
 				<i class="fa fa-refresh fa-spin fa fa-fw"></i>
 				<span>Refreshes every 5 sec </span>
 			</div>
-			<small><i class="fa fa-clock-o" aria-hidden="true"></i> Last updated: </small>
+			<small><i class="fa fa-clock-o" aria-hidden="true"></i> Last updated: {{ ts }}</small>
 
 			<table class="table small m-t-sm">
 				<tbody>
 					<tr>
 						<td>
-							<strong><i class="fa fa-level-up text-navy" aria-hidden="true"></i> Today's High </strong> 27.00&deg;C
+							<strong><i class="fa fa-level-up text-navy" aria-hidden="true"></i> Today's High </strong> {{ high }}&deg;C
 						</td>
 						<td>
-							<strong><i class="fa fa-level-down text-danger" aria-hidden="true"></i> Today's Low </strong> 22.50&deg;C
+							<strong><i class="fa fa-level-down text-danger" aria-hidden="true"></i> Today's Low </strong> {{ low }}&deg;C
 						</td>
 
 					</tr>
 					<tr>
 						<td>
-							<strong><i class="fa fa-area-chart text-warning" aria-hidden="true"></i> Average </strong> 25.45&deg;C
+							<strong><i class="fa fa-area-chart text-warning" aria-hidden="true"></i> Average </strong> {{ avg }}&deg;C
 						</td>
 						<td>
-							<strong><i class="fa fa-thermometer-half text-info" aria-hidden="true"></i> St. Deviation </strong> 0.56&deg;C
+							<strong><i class="fa fa-thermometer-half text-info" aria-hidden="true"></i> St. Deviation </strong> {{ std }}&deg;C
 						</td>
 					</tr>
 				</tbody>
 			</table>
+			<small><i class="fa fa-clock-o" aria-hidden="true"></i> Last updated: {{ tsSummary }}</small>
 		</div>
+		{{/if}}
 	</div>
 </template>

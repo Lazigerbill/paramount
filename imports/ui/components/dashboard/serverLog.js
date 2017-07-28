@@ -1,12 +1,11 @@
 import './serverLog.html';
 import moment from 'moment'
-import { Template } from 'meteor/templating';
 import { Lifecycles } from '/imports/api/lifecycles.js';
 
 
 
 Template.serverLog.onRendered(function(){
-	Meteor.subscribe("lifecycles",{
+	this.subscribe("lifecycles",{
 		onStop: function(e){
 			console.log(e);
 		}

@@ -23,6 +23,7 @@
     "meteor-node-stubs": "^0.2.11",
     "moment": "^2.18.1",
     "reinterval": "^1.1.0",
+    "simple-statistics": "^4.1.0",
     "split2": "^2.1.1",
     "utf-8-validate": "^3.0.3",
     "websocket-stream": "^5.0.0"

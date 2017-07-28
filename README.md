@@ -3,7 +3,7 @@
 ## Hardware setup:
 1. RTC config
   - [X]use UDP NTP to set internal WICED RTC (Reference TimeNDP.ino, change it so it works over WIFI instead of ethernet)
-  - [ ]or get external RTC
+  - [ ]or get external RTC (NIST is not reliable...should consider getting RTC)
 2. Sensor config(Temperature sensor)
   - [X]OneWire, 12bit resolution
 3. Configure payload
@@ -33,20 +33,19 @@
 }
   
 ## Backend:
-1. 3 documents
-  - [ ]device events
-  - [ ]Daily sensor readings
-  - [ ]RT chart data(add array to DB, "unshift" to the beginning of array)
+1. 2 documents
+  - [X]device events
+  - [ ]Daily sensor readings(with rtSeq"array" and summary)
 2. setup node cron job to:
   - [X]create data placeholder
-  - [ ]create functions to insert on msg
+  - [X]create functions to insert on msg
 
 ## Frontend:
-1. Design layout and cards to use
+1. [X]Design layout and cards to use
 2. Upon login, 
   - [ ]get RT charting data and chart.  RT data is created ready server side, fixed length.
-  - [ ]Don't subscribe AWS on client side, too much trouble with authentication.  Just listen to DB change to update chart.
-  - [ ]Subscript to DB and observe change, plug in to session variable and update device status accordingly
+  - [X]Don't subscribe AWS on client side, too much trouble with authentication.  Just listen to DB change to update chart.
+  - [X]Subscript to DB and observe change, plug in to session variable and update device status accordingly
 3. Historical data
   - since Mongo aggregation is not reative, it is only useful for historical data.  Use function like $unwind, $project or $map to create daily charting data
   - Calendar date picker.  Subcription to DB with arg listening to Session.get.  When date is selected, Session.set new picked date.  Server side to publish the relavent date, do the following aggregation:
