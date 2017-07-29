@@ -16,10 +16,10 @@ Template.c3Chart.onCreated(function(){
 
 const initChart = function(){
     // console.log(Readings.findOne().rtSeq)
-    c3.generate({
+    const chart = c3.generate({
         bindto: '#slineChart',
         data:{
-            json: Readings.findOne().rtSeq.slice(0,500),
+            json: Readings.findOne().rtSeq.slice(0,200),
             keys: {
                 x: 'ts',
                 value: ['celsius', 'fahrenheit']
@@ -62,6 +62,24 @@ const initChart = function(){
                 padding: {top: 200, bottom: 100},
                 label: 'fahrenheit',
             }
+        },
+        oninit: function(){
+            const query = Readings.find();
+            let initializing = true;
+            query.observeChanges({
+                changed: function(id, doc) {
+                    if (!initializing) {
+                        chart.load({
+                            json: Readings.findOne().rtSeq.slice(0,200),
+                            keys: {
+                                x: 'ts',
+                                value: ['celsius', 'fahrenheit']
+                            }
+                        });
+                     }
+                }
+             });  
+             initializing = false; 
         }
     });
 };

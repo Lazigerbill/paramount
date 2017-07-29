@@ -38,7 +38,7 @@ var loggedIn = FlowRouter.group({
 });
 
 import '/imports/ui/pages/dashboard.js';
-import '/imports/ui/pages/pageTwo.js';
+import '/imports/ui/pages/historic.js';
 
 FlowRouter.route('/', {
     action: function() {
@@ -53,9 +53,9 @@ loggedIn.route('/dashboard', {
     }
 });
 
-loggedIn.route('/pageTwo', {
-	name: 'pageTwo',
+loggedIn.route('/historic', {
+	name: 'historic',
     action: function() {
-        BlazeLayout.render("mainLayout", {content: "pageTwo"});
+        BlazeLayout.render("mainLayout", {content: "historic"});
     }
 });

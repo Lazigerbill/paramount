@@ -1,0 +1,38 @@
+<template name="historic">
+
+    {{> pageHeading title='Historic Data' }}
+
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="text-center m-t-lg">
+                    <div style="overflow:hidden;">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <br>
+                                        <label class="font-normal">Pick a date here:</label>
+                                        <div id="data_1"></div> 
+                                     <button id="submit" class="btn btn-success btn-block m-t">Submit</button>
+                                     <hr>
+                                     <button id="export" class="btn btn-primary btn-block m-t"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Export to Excel</button>
+                                </div>
+                                 <div class="col-md-9">
+                                        <div class="ibox float-e-margins">
+                                            <div class="ibox-title">
+                                                <h5>Historic Temperature Chart</h5>
+                                                {{>iboxTools}}
+                                            </div>
+                                            <div class="ibox-content">
+                                                <div id="historyChart"></div>
+                                            </div>
+                                        </div>
+                                </div>
+                            </div>               
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
