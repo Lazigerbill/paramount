@@ -1,11 +1,16 @@
 import './historic.html';
-// import { datepicker } from 'bootstrap-datepicker';
+import 'bootstrap-datepicker/dist/css/bootstrap-datepicker3.min.css';
+import 'c3/c3.min.css';
 var moment = require('moment');
 var datepicker = require('bootstrap-datepicker');
 import c3 from 'c3';
 
 Template.historic.onRendered(function(){
-	    $('#data_1').datepicker();
+	    $('#data_1').datepicker({
+	    	todayBtn: 'linked',
+	    	todayHighlight: true,
+	    	endDate: "0d"
+	    });
 	    c3.generate({
 	        bindto: '#historyChart',
 	        data:{

@@ -1,5 +1,5 @@
 <template name="historic">
-
+       
     {{> pageHeading title='Historic Data' }}
 
     <div class="wrapper wrapper-content animated fadeInRight">
@@ -11,10 +11,13 @@
                             <div class="row">
                                 <div class="col-md-3">
                                     <br>
-                                        <label class="font-normal">Pick a date here:</label>
-                                        <div id="data_1"></div> 
+                                        <div class="form-group" id="data_1">
+                                            <label class="font-normal">Pick a date here:</label>
+                                            <div class="input-group date">
+                                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" class="form-control">
+                                            </div>
+                                        </div>
                                      <button id="submit" class="btn btn-success btn-block m-t">Submit</button>
-                                     <hr>
                                      <button id="export" class="btn btn-primary btn-block m-t"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Export to Excel</button>
                                 </div>
                                  <div class="col-md-9">
