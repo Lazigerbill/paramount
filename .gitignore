@@ -2,4 +2,3 @@ local/
 node_modules/
 development_env.json
 production_env.json
-certs/
