@@ -28,7 +28,6 @@ if (Meteor.isServer){
 	query.observeChanges({
 	    changed: function(id, doc) {
 	        if (!initializing) {
-	        	console.log(counter);
 	        	counter += 1;
 	        	if (counter >= 12){
 	        		let arr = doc.rtSeq.map(function(x){
@@ -52,8 +51,8 @@ if (Meteor.isServer){
 	        }
 		}
 	});
+	initializing = false;
 }
-// initializing = false;
 // if (Meteor.isServer){
 // 	// Perform this in client, after subscription onReady, do the array prep and then draw chart
 // 	// Need to input date here: DDMMYYYY, will be used for query
