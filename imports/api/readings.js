@@ -53,27 +53,36 @@ if (Meteor.isServer){
 	});
 	initializing = false;
 }
-// if (Meteor.isServer){
-// 	// Perform this in client, after subscription onReady, do the array prep and then draw chart
-// 	// Need to input date here: DDMMYYYY, will be used for query
-// 	const date = "27072017";
-// 	const id = "/things/test_wiced/test:" + date
-// 	const query = Readings.find({_id: id}, {fields: {readings:1}}).fetch()[0].readings
-// 	let doc = [];
-// 	for (let h in query) {
-// 		if (query.hasOwnProperty(h)) {
-// 			for (let m in query[h]) {
-// 				if (query[h][m].tempSum) {
-// 					// query[h][m].min = m.replace(/^\D+/g, "");
-// 					// query[h][m].hr = h.replace(/^\D+/g, "");
-// 					const momentStr = date + " " + h.replace(/^\D+/g, "") + ":" + m.replace(/^\D+/g, "");
-// 					query[h][m].ts = moment(momentStr, 'DDMMYYYY H:m')
-// 					query[h][m].avg = query[h][m].tempSum/query[h][m].tempCount;
-// 					doc.push(query[h][m]);
-// 				}
-// 			}
-// 		}
-// 	}
-// 	// unrole mins
-// 	// console.log(doc)
-// }
+
+if (Meteor.isServer){
+    
+    // Perform this in client, after subscription onReady, do the array prep and then draw chart
+    // Need to input date here: DDMMYYYY, will be used for query
+    Meteor.methods({
+        getDaily: function(date){
+            try{
+                const id = "/things/test_wiced/test:" + date
+                const query = Readings.find({_id: id}, {fields: {readings:1}}).fetch()[0].readings
+                let doc = [];
+                console.log("get!!!!$$$$")
+                for (let h in query) {
+                    if (query.hasOwnProperty(h)) {
+                        for (let m in query[h]) {
+                            if (query[h][m].tempSum) {
+                                // query[h][m].min = m.replace(/^\D+/g, "");
+                                // query[h][m].hr = h.replace(/^\D+/g, "");
+                                const momentStr = date + " " + h.replace(/^\D+/g, "") + ":" + m.replace(/^\D+/g, "");
+                                query[h][m].ts = moment(momentStr, 'DDMMYYYY H:m')
+                                query[h][m].avg = query[h][m].tempSum/query[h][m].tempCount;
+                                doc.push(query[h][m]);
+                            }
+                        }
+                    }
+                }
+                return JSON.stringify(doc);
+            }catch(error){
+                throw new Meteor.Error("getDailyFailure", error.message);
+            }
+        }
+    })
+}

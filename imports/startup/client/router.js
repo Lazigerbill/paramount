@@ -46,6 +46,12 @@ FlowRouter.route('/', {
     }
 });
 
+FlowRouter.route('/home', {
+    action: function() {
+        FlowRouter.go('/dashboard');
+    }
+});
+
 loggedIn.route('/dashboard', {
 	name: 'dashboard',
     action: function() {

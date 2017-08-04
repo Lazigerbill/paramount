@@ -23,6 +23,8 @@ const creatPlaceholder = new cron.CronJob({
    	start: true,		// start job now? or need to do job.start()
   	timeZone: 'America/Toronto'	//timeZone
 });
+
+// This line runs for the first time when app is first started in server.  "Today's" placeholder will be added.
 insertPlaceholder(moment().format("DDMMYYYY"));
 
 // The following codes insert a daily placeholder for all the readings
@@ -57,3 +59,4 @@ function insertPlaceholder(DDMMYYYY){
 		{upsert: true}
 		);
 }
+

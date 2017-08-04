@@ -47,23 +47,23 @@
   - [X]Don't subscribe AWS on client side, too much trouble with authentication.  Just listen to DB change to update chart.
   - [X]Subscript to DB and observe change, plug in to session variable and update device status accordingly
 3. Historical data
-  - since Mongo aggregation is not reative, it is only useful for historical data.  Use function like $unwind, $project or $map to create daily charting data
+  - since Mongo aggregation is not reactive, it is only useful for historical data.  Use function like $unwind, $project or $map to create daily charting data
   - Calendar date picker.  Subcription to DB with arg listening to Session.get.  When date is selected, Session.set new picked date.  Server side to publish the relavent date, do the following aggregation:
   a. unwind
   b. average per minute
   c. project
   - default is today's date? Use session default?
 4. RT chart
-  - Each tick is saved as an array, new point array.unshift to the front position
-  - On render, chart picks up the entire array(or can array.slice into any length)
-  - Oberserve sessions, sessions will also store the last tick
+  - [x]Each tick is saved as an array, new point array.unshift to the front position
+  - [x]On render, chart picks up the entire array(or can array.slice into any length)
+  - [x]Oberserve sessions, sessions will also store the last tick
 
 5. Sessions
-  - Sessions will always store the last tick, reading from rtSeq
-  - Sessions default is set to the last rtSeq
-  - Rt chart will get from sessions for new data
-  - device status/RT temp will get from sessions for latest data
-  - avg, hi, lo?
+  - [x]Sessions will always store the last tick, reading from rtSeq
+  - [x]Sessions default is set to the last rtSeq
+  - [x]Rt chart will get from sessions for new data
+  - [x]device status/RT temp will get from sessions for latest data
+  - [x]avg, hi, lo, std
 
 Chart considerations:
 1. Support JSON data
@@ -73,5 +73,6 @@ Chart considerations:
 ## conclusion: C3, next: ChartJS, RichShaw
 
 ## Deployment:
-1. DB
-2. App
+Future enhancement
+1. Move MQTT stuff to NPM background jobs and run it on a seperate worker dyno
+2. Shoud web client connect to MQTT broker? 
