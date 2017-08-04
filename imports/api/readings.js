@@ -20,38 +20,39 @@ if (Meteor.isServer){
 			fields: {rtSeq:1}
 		});
 	});
-}
 
-// The following codes update the summary every 12 ticks(1 min)
-const query = Readings.find();
-let initializing = true;
-let counter = 0
-query.observeChanges({
-    changed: function(id, doc) {
-        if (!initializing) {
-        	counter += 1;
-        	if (counter >= 12){
-        		let arr = doc.rtSeq.map(function(x){
-        			return x.celsius
-        		});
-        		const avg = mean(arr);
-        		const low = min(arr);
-        		const high = max(arr);
-        		const std = standardDeviation(arr);
-        		Readings.update({'_id': id}, 
-        			{$set: {
-	        			'summary.avg': avg,
-	        			'summary.low': low,
-	        			'summary.high': high,
-	        			'summary.std': std,
-	        			'summary.ts': new Date()
-	        		}
-        		})
-        		counter = 0;
-        	}
-        }
-	}
-});
+	// The following codes update the summary every 12 ticks(1 min)
+	const query = Readings.find();
+	let initializing = true;
+	let counter = 0
+	query.observeChanges({
+	    changed: function(id, doc) {
+	        if (!initializing) {
+	        	console.log(counter);
+	        	counter += 1;
+	        	if (counter >= 12){
+	        		let arr = doc.rtSeq.map(function(x){
+	        			return x.celsius
+	        		});
+	        		const avg = mean(arr);
+	        		const low = min(arr);
+	        		const high = max(arr);
+	        		const std = standardDeviation(arr);
+	        		Readings.update({'_id': id}, 
+	        			{$set: {
+		        			'summary.avg': avg,
+		        			'summary.low': low,
+		        			'summary.high': high,
+		        			'summary.std': std,
+		        			'summary.ts': new Date()
+		        		}
+	        		})
+	        		counter = 0;
+	        	}
+	        }
+		}
+	});
+}
 // initializing = false;
 // if (Meteor.isServer){
 // 	// Perform this in client, after subscription onReady, do the array prep and then draw chart
