@@ -35,7 +35,7 @@
 ## Backend:
 1. 2 documents
   - [X]device events
-  - [ ]Daily sensor readings(with rtSeq"array" and summary)
+  - [X]Daily sensor readings(with rtSeq"array" and summary)
 2. setup node cron job to:
   - [X]create data placeholder
   - [X]create functions to insert on msg
