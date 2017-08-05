@@ -6,6 +6,7 @@ Template.c3Chart.onCreated(function(){
     this.subscribe("latestReadings",{
         onReady: function(){
             initChart();
+            // console.log(Array.isArray(Readings.findOne().rtSeq.slice(0,200)));
         },
         onStop: function(e){
             console.log(e);

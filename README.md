@@ -58,10 +58,10 @@
   - [x]On render, chart picks up the entire array(or can array.slice into any length)
   - [x]Oberserve sessions, sessions will also store the last tick
 
-5. Sessions
+5. Sessions3.
   - [x]Sessions will always store the last tick, reading from rtSeq
   - [x]Sessions default is set to the last rtSeq
-  - [x]Rt chart will get from sessions for new data
+  - [x]Rt chart will get from sessions 3.for new data
   - [x]device status/RT temp will get from sessions for latest data
   - [x]avg, hi, lo, std
 
@@ -76,3 +76,8 @@ Chart considerations:
 Future enhancement
 1. Move MQTT stuff to NPM background jobs and run it on a seperate worker dyno
 2. Shoud web client connect to MQTT broker? 
+
+## Bugs report
+1. Battery level is not accurate
+2. Server logs in dashboard is not sorted when data changes
+3. Device disconnects frequently, not sure if it is the issue with Device or MQTT broker, can test with blinks onboard.
