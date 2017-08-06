@@ -9,17 +9,13 @@ import c3 from 'c3';
 
 Template.historic.onCreated(function(){
     this.reactiveDate = new ReactiveVar(moment());   
-    console.log(Template.instance().reactiveDate.get());
-    this.subscribe('latestReadings', {
-        onReady: function(){
-            Meteor.call('getDaily', moment().format("DDMMYYYY"), function(error, result){
-                if(error){
-                  console.log(error.reason);
-                  return;
-                }
-            drawChart(JSON.parse(result));
-            });
+    this.subscribe('summaryReadings');
+    Meteor.call('getDaily', moment().format("DDMMYYYY"), function(error, result){
+        if(error){
+          console.log(error.reason);
+          return;
         }
+        drawChart(JSON.parse(result));
     });
 });
 
@@ -34,7 +30,27 @@ Template.historic.onRendered(function(){
 Template.historic.helpers({
     displayDate: function(){
         return moment(Template.instance().reactiveDate.get()).format("dddd, MMMM Do YYYY");
-    }
+    },
+    high: function(){
+        const id = "/things/test_wiced/test:" + moment(Template.instance().reactiveDate.get()).format("DDMMYYYY");
+        return Readings.find({'_id': id}).fetch()[0].summary.high.toFixed(4)
+    },
+    low: function(){
+        const id = "/things/test_wiced/test:" + moment(Template.instance().reactiveDate.get()).format("DDMMYYYY");
+        return Readings.find({'_id': id}).fetch()[0].summary.low.toFixed(4)
+    },
+    avg: function(){
+        const id = "/things/test_wiced/test:" + moment(Template.instance().reactiveDate.get()).format("DDMMYYYY");
+        return Readings.find({'_id': id}).fetch()[0].summary.avg.toFixed(4)
+    },
+    std: function(){
+        const id = "/things/test_wiced/test:" + moment(Template.instance().reactiveDate.get()).format("DDMMYYYY");
+        return Readings.find({'_id': id}).fetch()[0].summary.std.toFixed(4)
+    },
+    tsSummary: function(){
+        const id = "/things/test_wiced/test:" + moment(Template.instance().reactiveDate.get()).format("DDMMYYYY");
+        return Readings.find({'_id': id}).fetch()[0].summary.ts
+    },
 });
 
 Template.historic.events({
@@ -122,3 +138,8 @@ const drawChart = function(input){
 
     });
 };
+
+const getCollection = function(date){
+    const id = "/things/test_wiced/test:" + date
+    return Readings.find({_id: id}).summary
+}

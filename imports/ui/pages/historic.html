@@ -13,12 +13,9 @@
                                     <br>
                                         <div class="form-group" id="data_1">
                                             <label class="font-normal">Pick a date here:</label>
-                                            <div class="input-group date">
-                                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" class="form-control">
-                                            </div>
                                         </div>
                                      <button id="submit" class="btn btn-success btn-block m-t">Submit</button>
-                                     <button id="export" class="btn btn-primary btn-block m-t"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Export to Excel</button>
+                                    <!--  <button id="export" class="btn btn-primary btn-block m-t"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Export to Excel</button> -->
                                 </div>
                                  <div class="col-md-9">
                                         <div class="ibox float-e-margins">
@@ -30,12 +27,47 @@
                                                 <div id="historyChart"></div>
                                             </div>
                                         </div>
-                                </div>
-                            </div>               
+                                        <div class="ibox float-e-margins">
+                                            <div class="ibox-title">
+                                                <h5>Daily Summary for {{ displayDate }}</h5>
+                                            </div>
+                                            <div class="ibox-content">
+                                                <table class="table m-t-sm">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>
+                                                                <strong><i class="fa fa-level-up text-navy" aria-hidden="true"></i> Day High </strong> {{ high }}&deg;C
+                                                            </td>
+                                                            <td>
+                                                                <strong><i class="fa fa-level-down text-danger" aria-hidden="true"></i> Day Low </strong> {{ low }}&deg;C
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <strong><i class="fa fa-area-chart text-warning" aria-hidden="true"></i> Average </strong> {{ avg }}&deg;C
+                                                            </td>
+                                                            <td>
+                                                                <strong><i class="fa fa-thermometer-half text-info" aria-hidden="true"></i> St. Deviation </strong> {{ std }}&deg;C
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <i class="fa fa-clock-o" aria-hidden="true"></i> Last updated: {{ tsSummary }}
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                        
+                                            </div>
+                                        </div>
+                                 </div>   
+                            </div>        
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+ 
 </template>

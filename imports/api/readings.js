@@ -21,6 +21,12 @@ if (Meteor.isServer){
 		});
 	});
 
+	Meteor.publish('summaryReadings', function(){
+		return Readings.find({}, {
+			fields: {summary:1}
+		});
+	});
+
 	// The following codes update the summary every 12 ticks(1 min)
 	const query = Readings.find();
 	let initializing = true;
