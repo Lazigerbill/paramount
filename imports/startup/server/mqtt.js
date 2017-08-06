@@ -61,6 +61,9 @@ device.on('message', Meteor.bindEnvironment(function callback(topic, payload) {
                 rtSeq: {
                     $each: arr,
                     $position: 0
+                    // rtSeq should only be for rt display only, so keep this short for performance reason
+                    // ideally, we won't need to update every 5 seconds, perfer to redraw chart every 5 minutes using avg data instead
+                    // $slice: 100
                 }
             }
         },

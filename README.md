@@ -81,3 +81,4 @@ Future enhancement
 1. Battery level is not accurate
 2. Server logs in dashboard is not sorted when data changes
 3. Device disconnects frequently, not sure if it is the issue with Device or MQTT broker, can test with blinks onboard.
+4. Change Sessions var to Reactive Dict

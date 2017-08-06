@@ -2,12 +2,14 @@ import './historic.html';
 import 'bootstrap-datepicker/dist/css/bootstrap-datepicker3.min.css';
 import 'c3/c3.min.css';
 import { Readings } from "/imports/api/readings.js"
-
+import { ReactiveVar } from 'meteor/reactive-var'
 var moment = require('moment');
 var datepicker = require('bootstrap-datepicker');
 import c3 from 'c3';
 
-Template.historic.onRendered(function(){
+Template.historic.onCreated(function(){
+    this.reactiveDate = new ReactiveVar(moment());   
+    console.log(Template.instance().reactiveDate.get());
     this.subscribe('latestReadings', {
         onReady: function(){
             Meteor.call('getDaily', moment().format("DDMMYYYY"), function(error, result){
@@ -19,24 +21,20 @@ Template.historic.onRendered(function(){
             });
         }
     });
+});
+
+Template.historic.onRendered(function(){
     $('#data_1').datepicker({
-    	todayBtn: 'linked',
-    	todayHighlight: true,
-    	endDate: "0d"
+        todayBtn: 'linked',
+        todayHighlight: true,
+        endDate: "0d"
     });
-    // c3.generate({
-    //     bindto: '#historyChart',
-    //     data:{
-    //         columns: [
-    //             ['data1', 30, 200, 100, 400, 150, 250],
-    //             ['data2', 50, 20, 10, 40, 15, 25]
-    //         ],
-    //         colors:{
-    //             data1: '#1ab394',
-    //             data2: '#BABABA'
-    //         }
-    //     }
-    // });
+});
+
+Template.historic.helpers({
+    displayDate: function(){
+        return moment(Template.instance().reactiveDate.get()).format("dddd, MMMM Do YYYY");
+    }
 });
 
 Template.historic.events({
@@ -44,6 +42,7 @@ Template.historic.events({
 	    // Prevent default browser form submit
         event.preventDefault();
         const selDate = $('#data_1').datepicker('getDate')
+        Template.instance().reactiveDate.set(selDate);
         Meteor.call('getDaily', moment(selDate).format("DDMMYYYY"), function(error, result){
             if(error){
               console.log(error.reason);
