@@ -8,7 +8,7 @@ var datepicker = require('bootstrap-datepicker');
 import c3 from 'c3';
 
 Template.historic.onCreated(function(){
-    this.reactiveDate = new ReactiveVar(moment());   
+    this.reactiveDate = new ReactiveVar(new Date());   
     this.subscribe('summaryReadings');
     Meteor.call('getDaily', moment().format("DDMMYYYY"), function(error, result){
         if(error){
@@ -55,26 +55,28 @@ Template.historic.helpers({
 
 Template.historic.events({
     'click #submit'(event) {
-	    // Prevent default browser form submit
         event.preventDefault();
+        $( event.target ).button( 'loading' );
         const selDate = $('#data_1').datepicker('getDate')
         Template.instance().reactiveDate.set(selDate);
         Meteor.call('getDaily', moment(selDate).format("DDMMYYYY"), function(error, result){
             if(error){
               console.log(error.reason);
+              $( event.target ).button( 'reset' );
               return;
             }
             drawChart(JSON.parse(result));
+            $( event.target ).button( 'reset' );
         }); 
     },
     'click #export'(event) {
         event.preventDefault();
         $( event.target ).button( 'loading' );
-        const date = $('#datePicker').data("DateTimePicker").date().format(); 
-        console.log(date);
+        const date = moment(Template.instance().reactiveDate.get()).format("DDMMYYYY");
         Meteor.call('exportCsv', date, function(err, fileContent){
-            var nameFile = new Date(date).toDateString() + '.csv';
+            var nameFile = date + '.csv';
             if(fileContent){
+                console.log("fileContent");
                 var blob = new Blob([fileContent], {type: "text/plain;charset=utf-8"});
                 saveAs(blob, nameFile);
                 $( event.target ).button( 'reset' );
@@ -138,8 +140,3 @@ const drawChart = function(input){
 
     });
 };
-
-const getCollection = function(date){
-    const id = "/things/test_wiced/test:" + date
-    return Readings.find({_id: id}).summary
-}

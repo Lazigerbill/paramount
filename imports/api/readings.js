@@ -86,6 +86,46 @@ if (Meteor.isServer){
             }catch(error){
                 throw new Meteor.Error("getDailyFailure", error.message);
             }
+        },
+        exportCsv: function(date) {
+        	const id = "/things/test_wiced/test:" + date
+        	const query = Readings.find({_id: id}, {fields: {readings:1}}).fetch()[0].readings
+        	let doc = [];	
+        	for (let h in query) {
+        	    if (query.hasOwnProperty(h)) {
+        	        for (let m in query[h]) {
+        	            if (query[h][m].tempSum) {
+        	                const momentStr = date + " " + ('0' + h.replace(/^\D+/g, "")).slice(-2) + ":" + ('0' + m.replace(/^\D+/g, "")).slice(-2);
+        	                query[h][m].ts = momentStr;
+        	                query[h][m].avg = query[h][m].tempSum/query[h][m].tempCount;
+        	                doc.push(query[h][m]);
+        	            }
+        	        }
+        	    }
+        	}
+        	// const startTime = new Date(date);
+        	// const endTime = new Date(moment(date).endOf('day'));
+        	// const pipeline = [{ 
+        	// 	$match: { 
+        	// 		ts: { 
+        	// 			$gt: startTime, 
+        	// 			$lt: endTime
+        	// 		} 
+        	// 	} 
+        	// }, {
+        	// 	$project: {
+        	// 		_id: 0, 
+        	// 		TimeStamp: "$ts",
+        	// 		Current: "$message.current",
+        	// 		Voltage: "$message.v12",
+        	// 		Power: "$message.apower",
+        	// 		// MachineState: "$state.currentState"
+        	// 	}
+        	// }]
+        	// const collection = Machines.aggregate(pipeline)
+        	var heading = true; // Optional, defaults to true
+        	var delimiter = ";" // Optional, defaults to ",";
+        	return exportcsv.exportToCSV(doc, heading, delimiter);
         }
     })
 }
