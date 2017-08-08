@@ -61,9 +61,6 @@ if (Meteor.isServer){
 }
 
 if (Meteor.isServer){
-    
-    // Perform this in client, after subscription onReady, do the array prep and then draw chart
-    // Need to input date here: DDMMYYYY, will be used for query
     Meteor.methods({
         getDaily: function(date){
             try{
@@ -103,26 +100,6 @@ if (Meteor.isServer){
         	        }
         	    }
         	}
-        	// const startTime = new Date(date);
-        	// const endTime = new Date(moment(date).endOf('day'));
-        	// const pipeline = [{ 
-        	// 	$match: { 
-        	// 		ts: { 
-        	// 			$gt: startTime, 
-        	// 			$lt: endTime
-        	// 		} 
-        	// 	} 
-        	// }, {
-        	// 	$project: {
-        	// 		_id: 0, 
-        	// 		TimeStamp: "$ts",
-        	// 		Current: "$message.current",
-        	// 		Voltage: "$message.v12",
-        	// 		Power: "$message.apower",
-        	// 		// MachineState: "$state.currentState"
-        	// 	}
-        	// }]
-        	// const collection = Machines.aggregate(pipeline)
         	var heading = true; // Optional, defaults to true
         	var delimiter = ";" // Optional, defaults to ",";
         	return exportcsv.exportToCSV(doc, heading, delimiter);

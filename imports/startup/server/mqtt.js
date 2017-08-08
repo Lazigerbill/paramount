@@ -46,9 +46,10 @@ device.on('message', Meteor.bindEnvironment(function callback(topic, payload) {
         newSeq.signal = data.d.status.wifi_signal;
         const arr = [newSeq];
         const document = topic + ":" + moment(ts).format("DDMMYYYY");
-        const marker = "readings.h" + moment(ts).format("H") + ".m" + moment(ts).format("m");
+        const marker = "readings[h" + moment(ts).format("H") + "][m" + moment(ts).format("m") + "]";
         const tempSum = marker + ".tempSum";
         const tempCount = marker + ".tempCount";
+        const tempAvg = marker + ".tempAvg";
         const query = {}
         query[tempSum] = data.d.sensor.temperature.celsius;
         query[tempCount] = 1;
@@ -57,13 +58,14 @@ device.on('message', Meteor.bindEnvironment(function callback(topic, payload) {
         { "_id": document },
         {
             $inc: query,
+            // $set: calAvg,
             $push: { 
                 rtSeq: {
                     $each: arr,
                     $position: 0
                     // rtSeq should only be for rt display only, so keep this short for performance reason
                     // ideally, we won't need to update every 5 seconds, perfer to redraw chart every 5 minutes using avg data instead
-                    // $slice: 100
+                    // $slice: 120
                 }
             }
         },
@@ -73,8 +75,5 @@ device.on('message', Meteor.bindEnvironment(function callback(topic, payload) {
                 console.log(err);
             }
         })
-
-
-
     };
 }));

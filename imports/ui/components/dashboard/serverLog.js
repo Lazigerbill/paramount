@@ -4,7 +4,7 @@ import { Lifecycles } from '/imports/api/lifecycles.js';
 
 
 
-Template.serverLog.onRendered(function(){
+Template.serverLog.onCreated(function(){
 	this.subscribe("lifecycles",{
 		onStop: function(e){
 			console.log(e);

@@ -39,6 +39,7 @@
 2. setup node cron job to:
   - [X]create data placeholder
   - [X]create functions to insert on msg
+3. Preferably getting readings 1 per minute.  That will avoid using $inc and will make caculating summary much easier.  If $inc must be used, then consider using ## collection hooks to update average at the minute mark  
 
 ## Frontend:
 1. [X]Design layout and cards to use
@@ -79,7 +80,23 @@ Future enhancement
 
 ## Bugs report
 1. Battery level is not accurate
-2. Server logs in dashboard is not sorted when data changes
-3. Device disconnects frequently, not sure if it is the issue with Device or MQTT broker, can test with blinks onboard.
-4. Change Sessions var to Reactive Dict for RT card
-5. Revisit summary calculations, use full data instead of rtSeq
+2. Device disconnects frequently, not sure if it is the issue with Device or MQTT broker, can test with blinks onboard.
+3. Revisit summary calculations, use full data instead of rtSeq
+4. Move codes to woker to improve performance
+
+## Non-critical issues:
+1. Server logs in dashboard is not sorted when data changes, reactive sort?
+2. Change Sessions var to Reactive Dict for RT card.  Forget it, Blaze should be replaced by React anyway.
+3. MQTT pub/sub
+  - device: remove sub
+            auto restart wiced when broker disconnects
+            get watch dog timer to prevent device hang: http://docs.leaflabs.com/static.leaflabs.com/pub/leaflabs/maple-docs/0.0.12/libmaple/api/iwdg.html
+  - node: sub with QoS 1
+
+## alerts
+1. can test AWS SNS for admin warnings
+ - seems straigth forward, define rules and messages will be published
+ - May be complicated if rules are changing, so only good for certain set rules, eg. Device life cycle, battery level etc.
+
+
+

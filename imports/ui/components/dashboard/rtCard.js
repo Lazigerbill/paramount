@@ -16,12 +16,6 @@ if (Meteor.isClient){
 		fahrenheit(){
 			return Session.get('fahrenheit');
 		},
-		battery(){
-			return Session.get('battery');
-		},
-		signal(){
-			return Session.get('signal');
-		},
 		ts(){
 			return Session.get('ts');
 		},
