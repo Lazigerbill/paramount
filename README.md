@@ -79,3 +79,37 @@ Future enhancement
 
 ## Bugs report
 
+## Device status workflow
+  - set keepalive to 2x interval
+  - in case of publish hang, broker will disconnect device and publish LWT
+  - when broker disconnect device, disconnect message will be puslished through aws lifecycle
+      A. db will be updated to capture state
+      B. front end will be updated to show device disconnection
+      C. Device will be left hanging. Need watchdog to jumpstart code again, set to 3x inteval
+
+2 options to track device status:
+  1. subscribe to life cycle events.  Lifecycle messages might be sent out of order and you might receive duplicate messages.
+  2. use shadow
+
+*It is probably better to build a system on shadow.
+For device, publish to $aws/things/myLightBulb/shadow/update/
+{
+    "state": {
+        "reported": {
+            "color": "red"
+        }
+    }
+}   
+
+For Master, publish to $aws/things/myLightBulb/shadow/update/
+{
+    "state": {
+        "desired": {
+            "color": "blue"
+        }
+    }
+} 
+
+Use of LWT:
+LWT will only publish on error(ungracefully)
+Becasue LWT cannot publish directly to $topic, there is a workaround with using rules.
