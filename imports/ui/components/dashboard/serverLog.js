@@ -13,5 +13,5 @@ Template.serverLog.onCreated(function(){
 })
 
 Template.serverLog.helpers({
-	serverItems: Lifecycles.find()
+	serverItems: Lifecycles.find({}, {sort: {timestamp: -1}})
 })

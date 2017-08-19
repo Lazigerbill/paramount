@@ -2,6 +2,8 @@ import awsIot from 'aws-iot-device-sdk';
 import moment from 'moment';
 import { Lifecycles } from '/imports/api/lifecycles.js';
 import { Readings } from '/imports/api/readings.js';
+import { DeviceStatus } from '/imports/api/deviceStatus.js';
+import { ShadowDocs } from '/imports/api/shadowDocs.js';
 
 var base = process.env.PWD
 
@@ -25,16 +27,22 @@ device.on('connect', function() {
     console.log('connect');
     device.subscribe('$aws/events/+/+/test_wiced');
     device.subscribe('/things/test_wiced/test');
+    device.subscribe('$aws/things/test_wiced/shadow/update/documents');
 });
 
 device.on('message', Meteor.bindEnvironment(function callback(topic, payload) {
     console.log(topic, payload.toString());
-    var patt = new RegExp("events");
-    var match = patt.test(topic);
-    if (match){
+    var events = new RegExp("events");
+    var shadow = new RegExp("shadow");
+    if (events.test(topic)){
         data = JSON.parse(payload);
         data.timestamp = new Date(data.timestamp) //convert epoch to js time object
         Lifecycles.insert(data), function(e) { 
+            throw e;
+        }
+    } else if (shadow.test(topic)){
+        data = JSON.parse(payload);
+        ShadowDocs.insert(data), function(e) { 
             throw e;
         }
     } else {
@@ -45,6 +53,20 @@ device.on('message', Meteor.bindEnvironment(function callback(topic, payload) {
         newSeq.battery = data.d.status.battery_lvl;
         newSeq.signal = data.d.status.wifi_signal;
         const arr = [newSeq];
+        DeviceStatus.update(
+            {"_id": topic},
+            {
+                $push: {
+                    rtSeq: {
+                        $each: arr,
+                        $position: 0,
+                        $slice: 120
+                    }
+                }
+            }, {
+                upsert: true
+            }
+        );
         const document = topic + ":" + moment(ts).format("DDMMYYYY");
         const marker = "readings[h" + moment(ts).format("H") + "][m" + moment(ts).format("m") + "]";
         const tempSum = marker + ".tempSum";

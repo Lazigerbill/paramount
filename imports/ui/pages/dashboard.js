@@ -3,12 +3,12 @@ import '/imports/ui/components/dashboard/c3Chart.js';
 import '/imports/ui/components/dashboard/rtCard.js';
 import '/imports/ui/components/dashboard/serverLog.js';
 import '/imports/ui/components/dashboard/deviceStatus.js';
-import { Readings } from '/imports/api/readings.js';
+import { DeviceStatus } from '/imports/api/deviceStatus.js';
 
 Template.dashboard.onCreated(function(){
-	this.subscribe('latestReadings', {
+	this.subscribe('deviceStatus', {
 		onReady: function(){
-			const query = Readings.findOne().rtSeq[0];
+			const query = DeviceStatus.findOne().rtSeq[0];
 			Session.set({
 				"battery": query.battery,
 				"signal": query.signal,
@@ -21,7 +21,7 @@ Template.dashboard.onCreated(function(){
 			console.log(e);
 		}
 	})
-	const query = Readings.find();
+	const query = DeviceStatus.find();
 	let initializing = true;
 	query.observeChanges({
         changed: function(id, doc) {
