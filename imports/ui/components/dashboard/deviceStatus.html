@@ -1,18 +1,26 @@
 <template name = "deviceStatus">
 	<div class="ibox float-e-margins">
 		<div class="ibox-title">
-			<span class="label label-primary pull-right">Today</span>
+			{{ #if connect}}
+				<span class="label label-primary pull-right">Connected</span>
+			{{else}}
+				<span class="label label-danger pull-right">Disconnected</span>
+			{{/if}}
 			<h5>Device status</h5>
 		</div>
 		<div class="ibox-content">
 
 			<div class="row">
 				<div class="col-md-6">
-					<h1 class="no-margins"> {{ battery }}</h1>
+					{{ #if connect}}
+						<h1 class="no-margins"> {{ battery }}</h1>
+					{{/if}}
 					<div class="font-bold text-info"><i class="fa fa-battery-three-quarters"></i> <small>Battery Level</small></div>
 				</div>
 				<div class="col-md-6">
-					<h1 class="no-margins">{{ signal }}dB</h1>
+					{{ #if connect}}
+						<h1 class="no-margins">{{ signal }}dB</h1>
+					{{/if}}
 					<div class="font-bold text-info"><i class="fa fa-signal"></i> <small>Signal Strength</small></div>
 				</div>
 			</div>
